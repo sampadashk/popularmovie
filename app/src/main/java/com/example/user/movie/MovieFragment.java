@@ -47,13 +47,9 @@ public class MovieFragment extends Fragment {
     GridView gridview;
 
 
-
-
     public MovieFragment() {
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -66,74 +62,69 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View rootView= inflater.inflate(R.layout.activity_main,container,false);
+        View rootView = inflater.inflate(R.layout.activity_main, container, false);
         movies = new ArrayList<ImageArray>();
 
-        imageArrayAdapter=new ArrayAdapterImage(getActivity(), movies);
-        gridview=(GridView)rootView.findViewById(R.id.grd);
+        imageArrayAdapter = new ArrayAdapterImage(getActivity(), movies);
+        gridview = (GridView) rootView.findViewById(R.id.grd);
         gridview.setAdapter(imageArrayAdapter);
         gridview.setVisibility(View.VISIBLE);
 
 
-
         return rootView;
     }
-    public void onStart()
-    {
+
+    public void onStart() {
         super.onStart();
         displayMovie();
     }
-    private void displayMovie()
-    {
-        FetchMovie ft=new FetchMovie();
-    }
-    class FetchMovie extends AsyncTask<String,Void,ImageArray[]>
-    {
 
-        ImageArray[] movieArr={null,null};
-        String[] moviePosters=null;
-        String[] movieTitles=null;
+    private void displayMovie() {
+        FetchMovie ft = new FetchMovie();
+        ft.execute();
+    }
+
+    class FetchMovie extends AsyncTask<String, Void, ImageArray[]> {
+
+        ImageArray[] movieArr ;
+
 
         private ImageArray[] getmovieDataFromJson(String forecastJsonStr)
                 throws JSONException {
             final String result = "results";
-            final String poster="poster_path";
+            final String poster = "poster_path";
             final String TITLE = "title";
-            final String popular="popularity";
-            final String rating="vote_average";
-            JSONObject jsobject=new JSONObject(forecastJsonStr);
-            JSONArray jsarray=jsobject.getJSONArray(result);
-            int n=jsarray.length();
+            final String popular = "popularity";
+            final String rating = "vote_average";
+            JSONObject jsobject = new JSONObject(forecastJsonStr);
+            JSONArray jsarray = jsobject.getJSONArray(result);
+            int n = jsarray.length();
+            movieArr=new ImageArray[n];
 
-            String[] add=new String[n];
+            String[] add = new String[n];
             String movieName;
             String posterpath;
 
             //ImageView imageView=(ImageView) view.findViewById(R.id.img_view);
             try {
                 for (int i = 0; i < jsarray.length(); i++) {
+                    String moviePosters;
+                    String movieTitles;
                     Image img;
                     JSONObject popmovie = jsarray.getJSONObject(i);
                     movieName = popmovie.getString(TITLE);
                     posterpath = popmovie.getString(poster);
-                    moviePosters[i] = "https://image.tmdb.org/t/p/" + posterpath;
-                    movieTitles[i] = movieName;
-                    movieArr[i] = new ImageArray(movieTitles[i], moviePosters[i]);
+                    moviePosters = "https://image.tmdb.org/t/p/" + posterpath;
+                    movieTitles = movieName;
+                    movieArr[i] = new ImageArray(movieTitles, moviePosters);
 
 
                 }
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
             return movieArr;
-
-
-
-
-
-
 
 
         }
@@ -142,8 +133,8 @@ public class MovieFragment extends Fragment {
             HttpURLConnection con = null;
             BufferedReader br = null;
             String forecastJsonStr = null;
-            String popularityval="popularity.desc";
-            String ampersand= "&";
+            String popularityval = "popularity.desc";
+            String ampersand = "&";
             try {
                 final String QUERY_PARAM = "sort_by";
 
@@ -192,38 +183,37 @@ public class MovieFragment extends Fragment {
                     }
                 }
             }
-            try
-            {
+            try {
                 return getmovieDataFromJson(forecastJsonStr);
-            }
-            catch(JSONException e)
-            {
-                Log.e("log_t",e.getMessage(),e);
+            } catch (JSONException e) {
+                Log.e("log_t", e.getMessage(), e);
                 e.printStackTrace();
             }
             return null;
 
         }
+
         @Override
         protected void onPostExecute(ImageArray[] result) {
-         imageArrayAdapter.addAll(result);
+
+            if (result != null) {
+
+                imageArrayAdapter.addAll(result);
+            }
+
         }
 
+
+        /**
+         * This interface must be implemented by activities that contain this
+         * fragment to allow an interaction in this fragment to be communicated
+         * to the activity and potentially other fragments contained in that
+         * activity.
+         * <p/>
+         * See the Android Training lesson <a href=
+         * "http://developer.android.com/training/basics/fragments/communicating.html"
+         * >Communicating with Other Fragments</a> for more information.
+         */
+
     }
-
-
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ ArrayAdapterImage(Activity context, List<ImageArray> imgarr)
     this.context=context;
 
 }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -50,8 +52,9 @@ ArrayAdapterImage(Activity context, List<ImageArray> imgarr)
                 .appendPath(SIZE)
                 .appendPath(POSTER_PATH)
                 .build();
+        Log.d("address",imgar.link);
         Picasso.with(getContext()).setLoggingEnabled(true);
-        Picasso.with(getContext()).load(uri).into(iv);
+        Picasso.with(getContext()).load(imgar.link).into(iv);
         return  convertView;
 
 
