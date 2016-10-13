@@ -25,7 +25,7 @@ public class ImageArray {
       this.name=name;
         this.link=link;
     }
-  /*  ImageArray(String title,String release,String thumb,String rating,String plot)
+   ImageArray(String title,String release,String thumb,String rating,String plot)
     {
         this.title=title;
         this.release=release;
@@ -34,5 +34,5 @@ public class ImageArray {
         this.plot=plot;
     }
 
-*/
+
 }

@@ -162,11 +162,11 @@ public class MovieFragment extends Fragment {
                     ratings=popmovie.getString(rating);
                     plot=popmovie.getString(synopsis);
                     thumbs=popmovie.getString(thumb);
-                    moviePosters = "https://image.tmdb.org/t/p/w342" + posterpath;
+                    moviePosters = "https://image.tmdb.org/t/p/w185" + posterpath;
 
                     movieArr[i] = new ImageArray(movieName, moviePosters);
                     Log.d("tag_ch",movieArr[i].name);
-                    //moviesend[i]=new ImageArray(movieTitle,releaseDate,thumbs,ratings,plot);
+                    moviesend[i]=new ImageArray(movieTitle,releaseDate,thumbs,ratings,plot);
 
 
                 }
