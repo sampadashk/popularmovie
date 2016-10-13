@@ -41,10 +41,9 @@ ArrayAdapterImage(Activity context, List<ImageArray> imgarr)
         }
         ImageView iv=(ImageView)convertView.findViewById(R.id.img_view);
         iv.setImageResource(imgar.image);
-        TextView tv=(TextView)convertView.findViewById(R.id.txt_mov);
-        tv.setText(imgar.name);
+
         final String MOVIE_BASE_URL = " http://image.tmdb.org/t/p/";
-        final String SIZE = "w92";
+        final String SIZE = "w342";
         final String POSTER_PATH = "poster_path";
         String value;
         // ?????????????????????
@@ -52,7 +51,7 @@ ArrayAdapterImage(Activity context, List<ImageArray> imgarr)
                 .appendPath(SIZE)
                 .appendPath(POSTER_PATH)
                 .build();
-        Log.d("address",imgar.link);
+//        Log.d("address",imgar.link);
         Picasso.with(getContext()).setLoggingEnabled(true);
         Picasso.with(getContext()).load(imgar.link).into(iv);
         return  convertView;

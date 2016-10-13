@@ -10,6 +10,11 @@ public class ImageArray {
    public String link;
     int image;
     String name;
+    String title;
+    String release;
+    String thumb;
+    String rating;
+    String plot;
     ImageArray(String name,int image)
     {
         this.image=image;
@@ -20,6 +25,14 @@ public class ImageArray {
       this.name=name;
         this.link=link;
     }
+  /*  ImageArray(String title,String release,String thumb,String rating,String plot)
+    {
+        this.title=title;
+        this.release=release;
+        this.thumb=thumb;
+        this.rating=rating;
+        this.plot=plot;
+    }
 
-
+*/
 }
