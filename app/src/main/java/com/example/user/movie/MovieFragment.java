@@ -44,6 +44,7 @@ public class MovieFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private ArrayAdapterImage imageArrayAdapter;
+    ImageArray[] moviesend;
     private List<ImageArray> movies;
     GridView gridview;
 
@@ -70,7 +71,7 @@ public class MovieFragment extends Fragment {
         gridview = (GridView) rootView.findViewById(R.id.grd);
         gridview.setAdapter(imageArrayAdapter);
         gridview.setVisibility(View.VISIBLE);
-       /* gridview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
 
             // These two need to be declared outside the try/catch
@@ -82,20 +83,21 @@ public class MovieFragment extends Fragment {
 
                 Bundle bundle=new Bundle();
                 bundle.putString("title",movieval.title);
+                Log.d("ct",bundle.getString("title"));
                 bundle.putString("release",movieval.release);
                 bundle.putString("thumb",movieval.thumb);
                 bundle.putString("rating",movieval.rating);
                 bundle.putString("plot",movieval.plot);
 
-               // Intent intent=new Intent(getActivity(),DetailActivity.class).putExtras(bundle);
-                //startActivity(intent);
+                Intent intent=new Intent(getActivity(),DetailActivity.class).putExtras(bundle);
+                startActivity(intent);
 
             }
 
 
 
         });
-        */
+
 
 
 
@@ -118,7 +120,7 @@ public class MovieFragment extends Fragment {
     class FetchMovie extends AsyncTask<String, Void, ImageArray[]> {
 
         ImageArray[] movieArr ;
-        ImageArray[] moviesend;
+
 
 
         private ImageArray[] getmovieDataFromJson(String forecastJsonStr)
@@ -164,9 +166,10 @@ public class MovieFragment extends Fragment {
                     thumbs=popmovie.getString(thumb);
                     moviePosters = "https://image.tmdb.org/t/p/w185" + posterpath;
 
-                    movieArr[i] = new ImageArray(movieName, moviePosters);
+                    movieArr[i] = new ImageArray(movieName, moviePosters,movieTitle,releaseDate,thumbs,ratings,plot);
+                   // movieArr[i] = new ImageArray(movieName, moviePosters);
                     Log.d("tag_ch",movieArr[i].name);
-                    moviesend[i]=new ImageArray(movieTitle,releaseDate,thumbs,ratings,plot);
+                   // moviesend[i]=new ImageArray(movieTitle,releaseDate,thumbs,ratings,plot);
 
 
                 }
