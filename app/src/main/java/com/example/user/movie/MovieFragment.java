@@ -119,6 +119,7 @@ public class MovieFragment extends Fragment {
         String sortOrder = sharedPrefs.getString(
                 getString(R.string.orderkey),
                 getString(R.string.defaultval));
+        Log.d("sortcheck",sortOrder);
         FetchMovie ft = new FetchMovie();
         ft.execute(sortOrder);
     }
@@ -196,16 +197,23 @@ public class MovieFragment extends Fragment {
             String popularityval = "popularity.desc";
             String ampersand = "&";
             String sortOrder = params[0];
+            String QUERY_PARAM;
+            if(sortOrder=="vote_average") {
+                QUERY_PARAM = "top_rated";
+            }
+            else
+
+                QUERY_PARAM="popular";
             String appKey = "0d8834b1d5d00841ba937c9185b4b03d";
             try {
-                final String QUERY_PARAM = "sort_by";
 
-                String format = "json";
+
+
                 final String APPID_PARAM = "api_key";
 
-                String add = "http://api.themoviedb.org/3/discover/movie?";
+                String add = "http://api.themoviedb.org/3/movie/"+QUERY_PARAM+"?";
 
-                Uri ur = Uri.parse(add).buildUpon().appendQueryParameter(QUERY_PARAM, sortOrder+".desc").appendQueryParameter(APPID_PARAM, appKey).build();
+                Uri ur = Uri.parse(add).buildUpon().appendQueryParameter(APPID_PARAM, appKey).build();
                 URL url = new URL(ur.toString());
                 Log.d("check_u",ur.toString());
                 con = (HttpURLConnection) url.openConnection();
