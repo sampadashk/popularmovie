@@ -2,12 +2,14 @@ package com.example.user.movie;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Movie;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,8 +115,12 @@ public class MovieFragment extends Fragment {
     }
 
     private void displayMovie() {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = sharedPrefs.getString(
+                getString(R.string.orderkey),
+                getString(R.string.defaultval));
         FetchMovie ft = new FetchMovie();
-        ft.execute();
+        ft.execute(sortOrder);
     }
 
     class FetchMovie extends AsyncTask<String, Void, ImageArray[]> {
@@ -149,6 +155,7 @@ public class MovieFragment extends Fragment {
             String ratings;
             String plot;
             String thumbs;
+
 
             //ImageView imageView=(ImageView) view.findViewById(R.id.img_view);
             try {
@@ -188,6 +195,7 @@ public class MovieFragment extends Fragment {
             String forecastJsonStr = null;
             String popularityval = "popularity.desc";
             String ampersand = "&";
+            String sortOrder = params[0];
             String appKey = "0d8834b1d5d00841ba937c9185b4b03d";
             try {
                 final String QUERY_PARAM = "sort_by";
@@ -195,9 +203,9 @@ public class MovieFragment extends Fragment {
                 String format = "json";
                 final String APPID_PARAM = "api_key";
 
-                String add = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc";
+                String add = "http://api.themoviedb.org/3/discover/movie?";
 
-                Uri ur = Uri.parse(add).buildUpon().appendQueryParameter(APPID_PARAM, appKey).build();
+                Uri ur = Uri.parse(add).buildUpon().appendQueryParameter(QUERY_PARAM, sortOrder+".desc").appendQueryParameter(APPID_PARAM, appKey).build();
                 URL url = new URL(ur.toString());
                 Log.d("check_u",ur.toString());
                 con = (HttpURLConnection) url.openConnection();
@@ -254,6 +262,7 @@ public class MovieFragment extends Fragment {
         protected void onPostExecute(ImageArray[] result) {
 
             if (result != null) {
+                imageArrayAdapter.clear();
 
                 imageArrayAdapter.addAll(result);
             }

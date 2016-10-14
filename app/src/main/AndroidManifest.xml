@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.movie">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,12 +19,12 @@
         </activity>
         <activity android:name=".DetailActivity"
             android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".SettingsActivity"
-
+        <activity android:name="com.example.user.movie.SettingsActivity"
             android:parentActivityName=".MainActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.user.movie.MainActivity" />
+            android:value="com.example.user.movie.MainActivity" /><!-- ATTENTION: This intent was auto-generated. Follow instructions at
+  https://g.co/AppIndexing/AndroidStudio to publish your URLs. -->
 
         </activity>
     </application>
