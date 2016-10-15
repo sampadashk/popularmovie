@@ -199,7 +199,8 @@ public class MovieFragment extends Fragment {
 
                 QUERY_PARAM="popular";
 
-            String appKey = "0d8834b1d5d00841ba937c9185b4b03d";
+            String appKey = " ";
+           // TODO: Put Your apikey here in variable appKey
             try {
 
 
