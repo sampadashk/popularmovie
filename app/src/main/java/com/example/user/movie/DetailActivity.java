@@ -38,9 +38,9 @@ public class DetailActivity extends AppCompatActivity {
         ivw.setVisibility(View.VISIBLE);
         putBackground(bkg);
         TextView tv1=(TextView)findViewById(R.id.rating_text_view);
-        tv1.setText(extras.getString("rating"));
+        tv1.setText("Rating:"+extras.getString("rating"));
         TextView tv2=(TextView)findViewById(R.id.date_text_view);
-        tv2.setText(extras.getString("release"));
+        tv2.setText("Release Date:"+extras.getString("release"));
         TextView tv3=(TextView)findViewById(R.id.overview_text_view);
         tv3.setText(extras.getString("plot"));
 

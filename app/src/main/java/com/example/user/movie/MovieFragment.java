@@ -100,12 +100,6 @@ public class MovieFragment extends Fragment {
 
         });
 
-
-
-
-
-
-
         return rootView;
     }
 
@@ -119,7 +113,8 @@ public class MovieFragment extends Fragment {
         String sortOrder = sharedPrefs.getString(
                 getString(R.string.orderkey),
                 getString(R.string.defaultval));
-        Log.d("sortcheck",sortOrder);
+        String QUERY_PARAM;
+
         FetchMovie ft = new FetchMovie();
         ft.execute(sortOrder);
     }
@@ -194,16 +189,16 @@ public class MovieFragment extends Fragment {
             HttpURLConnection con = null;
             BufferedReader br = null;
             String forecastJsonStr = null;
-            String popularityval = "popularity.desc";
-            String ampersand = "&";
             String sortOrder = params[0];
+            Log.d("ordercheck",sortOrder);
             String QUERY_PARAM;
-            if(sortOrder=="vote_average") {
+          if(sortOrder.equals("vote_average")) {
                 QUERY_PARAM = "top_rated";
             }
             else
 
                 QUERY_PARAM="popular";
+
             String appKey = "0d8834b1d5d00841ba937c9185b4b03d";
             try {
 
