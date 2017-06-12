@@ -46,7 +46,7 @@ public class MovieFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private ArrayAdapterImage imageArrayAdapter;
-    ImageArray[] moviesend;
+  
     private List<ImageArray> movies;
     GridView gridview;
 
@@ -113,7 +113,7 @@ public class MovieFragment extends Fragment {
         String sortOrder = sharedPrefs.getString(
                 getString(R.string.orderkey),
                 getString(R.string.defaultval));
-        String QUERY_PARAM;
+  
 
         FetchMovie ft = new FetchMovie();
         ft.execute(sortOrder);
@@ -141,7 +141,7 @@ public class MovieFragment extends Fragment {
             JSONArray jsarray = jsobject.getJSONArray(result);
             int n = jsarray.length();
             movieArr=new ImageArray[n];
-            moviesend=new ImageArray[n];
+          
 
             String[] add = new String[n];
             String movieName;
@@ -155,7 +155,7 @@ public class MovieFragment extends Fragment {
 
             //ImageView imageView=(ImageView) view.findViewById(R.id.img_view);
             try {
-                for (int i = 0; i < jsarray.length(); i++) {
+                for (int i = 0; i < n; i++) {
                     String moviePosters;
 
                     Image img;
@@ -199,7 +199,10 @@ public class MovieFragment extends Fragment {
 
                 QUERY_PARAM="popular";
 
-            String appKey = " ";
+            String appKey = " "; 
+            
+              //http://api.themoviedb.org/3/movie/popular?api_key=7a067b1d052056d4c0f744bfc703e5c1
+            
            // TODO: Put Your apikey here in variable appKey
             try {
 
